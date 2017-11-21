@@ -1,0 +1,33 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class jdbc {
+    public static void main(String[] args) {
+        Connection connection = null;
+        ResultSet resultSet = null;
+        Statement statement = null; 
+        try {
+            Class.forName("org.sqlite.JDBC");
+            connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\r.elizabeth.ranjit\\Downloads\\sqlite-tools-win32-x86-3210000\\sqlite-tools-win32-x86-3210000\\employee.db");
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("select * from employeedetails where manager='a';");
+            while (resultSet.next()) {
+                System.out.println("EMPLOYEE NAME:"
+                        + resultSet.getString("EMPNAME"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+                try {
+                resultSet.close();
+                statement.close();
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+        
+    }
+}
